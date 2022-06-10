@@ -8,6 +8,15 @@ import ffmpeg
 import googleapiclient.discovery
 from urllib.parse import parse_qs, urlparse
 
+# CONFIG
+
+TOKEN = ""
+DEVELOPER_KEY = ""
+VOICE_CHANNEL_ID = 0
+TEXT_CHANNEL_ID = 0
+
+# CONFIG
+
 client = discord.Client()
 stack = list()
 
@@ -41,9 +50,9 @@ def download(video_url: str) -> None:
 async def on_ready():
     global voiceClient, voiceChannel, textChannel
 
-    textChannel = client.get_channel(958926458917621811)
+    textChannel = client.get_channel(TEXT_CHANNEL_ID)
     await textChannel.send("Activated")
-    voiceChannel = client.get_channel(745646255077851236)
+    voiceChannel = client.get_channel(VOICE_CHANNEL_ID)
     voiceClient = await voiceChannel.connect()
     while True:
         if not len(stack):
@@ -77,7 +86,7 @@ async def on_message(msg: discord.Message):
             playlist_id = query["list"][0]
 
             youtube = googleapiclient.discovery.build("youtube", "v3",
-                                                      developerKey="AIzaSyAhkEVwOfu7vejrynPFqg63-m-ulJmCcfA")
+                                                      developerKey=DEVELOPER_KEY)
 
             request = youtube.playlistItems().list(
                 part="snippet",
@@ -102,5 +111,4 @@ async def on_message(msg: discord.Message):
         except KeyError:await msg.channel.send("It's not playlist's link!")
         except youtube_dl.utils.ExtractorError:await msg.channel.send("Sorry, but playlist have 18+ content")
 
-TOKEN = ""
 client.run(TOKEN)

@@ -7,7 +7,8 @@ It's first music bot created by me. It's uses `youtube_dl` library to download v
 and `discord` library to play music from video.
 
 ## How to use
-In `main.py` set`TOKEN` value to your bot's token.
+In `main.py` set`TOKEN` value to your bot's token, set `DEVELOPER_KEY` value to your GoogleApiClient DeveloperKey,
+set `TEXT_CHANNEL_ID` to your text channel id in discord, `VOICE_CHANNEL_ID` to your voice channel id in discord.
 
 Music bot have 2 commands:
 - `> play <link>` play music from youtube video
